@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> 
+</head>
+<style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            max-width: 600px; 
+            margin: 40px auto; 
+            padding: 20px; 
+            background: #f5f5f5; 
+            text-align: right;
+        }
+        .container { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 10px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+        }
+        h1 { color: #2c3e50; margin-bottom: 10px; }
+        .description { color: #7f8c8d; margin-bottom: 25px; line-height: 1.5; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; color: #34495e; }
+        input[type="text"], textarea, select { 
+            width: 100%; 
+            padding: 10px; 
+            border: 1px solid #bdc3c7; 
+            border-radius: 5px; 
+            font-size: 14px; 
+            box-sizing: border-box;
+        }
+        textarea { height: 80px; resize: vertical; }
+        .checkbox-group { margin: 10px 0; }
+        .checkbox-group label { font-weight: normal; margin-left: 5px; }
+        .optional { color: #7f8c8d; font-style: italic; }
+        .btn { 
+            background: #3498db; 
+            color: white; 
+            padding: 12px 30px; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            margin-top: 10px;
+        }
+        .btn:hover { background: #2980b9; }
+        .success { 
+            background: #2ecc71; 
+            color: white; 
+            padding: 20px; 
+            border-radius: 5px; 
+            text-align: center; 
+            margin: 20px 0; 
+        }
+        .error { 
+            background: #e74c3c; 
+            color: white; 
+            padding: 10px; 
+            border-radius: 5px; 
+            margin: 10px 0; 
+        }
+    </style>
+  <body>
+
+
+
+
+    <!-- <div style="background-image: url('ROSA_LOGO-Model.png'); height: 300px; width: 100%;"> -->
+<a href="/farsi"><img src="ir.png"></a>
+<a href="/ru"><img src="ru.png"></a>                                                                                                                                                                             
+
+    <h1 class="logo"><a tabindex="2" accesskey="1" href="/"><img src="ROSA_LOGO-Model.png" width="90" height="53" alt="W3C" /></a> <span class="alt-logo">  نظرسنجی: نظر شما درباره نرم‌افزار   </span></h1>
+    <div class="description">
+            <p> بررسی امکان‌سنجی بهینه‌سازی فرآیندهای کاری با استفاده از نرم‌افزارهای جایگزین از جمله Linux
+و open-source</p>
+            <p><strong>نظر شما برای اتخاذ تصمیمات آگاهانه بسیار حائز اهمیت است. این نظرسنجی ناشناس است — ذکر نام اختیاری می‌باشد.
+</strong> </p>
+        </div>
+
+
+            <form method="post" action="/submit">
+            <div class="form-group">
+                <label>۱. نام شما   <span class="optional">(اختیاری) </span></label>
+                <input type="text" name="name" placeholder="می‌توانید خالی بگذارید">
+            </div>
+            
+
+
+            <div class="form-group">
+                <label> ۲. تجربه کار با Linux 
+  <span style="color: red;">*</span></label>
+                <select name="linux_experience" required>
+                    <option value="">- انتخاب کنید -  </option>
+                    <option value="none">بدون سابقه  </option>
+                    <option value="basic">مبتدی (کمی تجربه استفاده دارم)  </option>
+                    <option value="advanced">پیشرفته (به طور منظم استفاده می‌کنم) </option>
+                    <option value="expert">متخصص (سیستم‌ها را مدیریت می‌کنم)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>۳. دیدگاه شما نسبت به امکان انتقال به Linux   <span style="color: red;">*</span></label>
+                <select name="attitude" required>
+                    <option value="">- انتخاب کنید -</option>
+                    <option value="positive">مثبت، آماده مشارکت هستم  </option>
+                    <option value="neutral">خنثی، برایم تفاوتی ندارد  </option>
+                    <option value="concerned">نگران پیچیدگی‌های احتمالی هستم  </option>
+                    <option value="negative">منفی، با این ایده موافق نیستم</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>. چه وظایفی را با کامپیوتر انجام می‌دهید؟  <span class="optional">(چندگزینه‌ای)</span></label>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="docsFlag" name="docs_flag">
+                    <label class="form-check-label" for="switchCheckDefault">کار با اسناد (Word, Excel)</label>
+                </div><br>
+
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="emailFlag" name="email_flag">
+                    <label class="form-check-label" for="switchCheckDefault">مدیریت ایمیل  </label>
+                </div>
+
+
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="1Cflag" name="c1flag">
+                    <label class="form-check-label" for="switchCheckDefault">کار با نرم‌افزار 1C  </label>
+                </div>
+
+
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="specialFlag" name="special_flag">
+                    <label class="form-check-label" for="switchCheckDefault">نرم‌افزارهای تخصصی (ذکر کنید)   </label>
+                    <input type="text" id = "specialDesc"   name="special_software" placeholder="نرم‌افزارهای تخصصی را ذکر کنید">
+
+                </div>
+
+              
+            <div class="form-check form-switch">
+                <label class="form-check-label" for="switchCheckDefault">۵. آیا آمادگی مشارکت در مرحله آزمایشی را دارید؟</label>
+                <!-- <input class="form-check-input" type="checkbox" role="switch" id="testflag" name="test_flag"> -->
+            </div>
+
+            <div class="form-group">
+                <label>. روش ترجیحی برای دریافت فیدبک  <span class="optional">(اختیاری)</span></label>
+                <input type="text" name="contact_preference" placeholder="ایمیل، تلگرام، گفتگوی حضوری ...">
+            </div>
+
+            <div class="form-group">
+                <label>۷. نظرات و پیشنهادات شما</label>
+                <textarea name="comments" placeholder="از نرم‌افزارهای فعلی چه موردی را می‌پسندید/نمی‌پسندید؟ چه چالش‌هایی پیش‌بینی می‌کنید؟?"></textarea>
+            </div>
+
+            <button type="submit" class="btn">ارسال پاسخ </button>
+                    </form>
+
+    <script src="script.js"></script>
+
+    <!-- </div> -->
+
+    
+   
+  </body>
+</html>

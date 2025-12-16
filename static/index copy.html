@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Опрос</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; }
+        .message { padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <h1>Опрос о переходе на Linux и LibreOffice</h1>
+    
+    <form id="surveyForm">
+        <p><strong>Ваше мнение важно для принятия взвешенных решений. Опрос анонимен — указывать имя необязательно.</strong></p>
+        
+        <div style="margin-bottom: 15px;">
+            <label>Ваше имя (необязательно)</label><br>
+            <input type="text" name="name" placeholder="Можно оставить пустым" style="width: 100%; padding: 8px;">
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+            <label>Опыт работы с Linux *</label><br>
+            <select name="linux_experience" required style="width: 100%; padding: 8px;">
+                <option value="">-- Выберите вариант --</option>
+                <option value="0">Нет опыта</option>
+                <option value="1">Базовый (пользовался немного)</option>
+                <option value="2">Продвинутый (регулярно использую)</option>
+                <option value="3">Эксперт (администрирую системы)</option>
+            </select>
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+            <label>Ваше отношение к возможному переходу на Linux *</label><br>
+            <select name="attitude" required style="width: 100%; padding: 8px;">
+                <option value="">-- Выберите вариант --</option>
+                <option value="0">Положительное, готов участвовать</option>
+                <option value="1">Нейтральное, мне все равно</option>
+                <option value="2">Есть опасения по поводу сложностей</option>
+                <option value="3">Отрицательное, не поддерживаю идею</option>
+            </select>
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+            <label>Какие задачи выполняете на компьютере? (можно выбрать несколько)</label><br>
+            <div><input type="checkbox" name="docs_flag" value="true"> Работа с документами (Word, Excel)</div>
+            <div><input type="checkbox" name="email_flag" value="true"> Электронная почта</div>
+            <div><input type="checkbox" name="c1flag" value="true"> Работа с 1С</div>
+            <div><input type="checkbox" name="special_flag" value="true"> Специализированный софт</div>
+            <input type="text" name="special_software" placeholder="Перечислите Специализированный софт" 
+                   style="width: 100%; padding: 8px; margin-top: 5px;">
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+            <label>Готовы ли вы участвовать в тестировании?</label><br>
+            <input type="checkbox" name="will_test" value="true"> Да
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+            <label>Предпочтительный способ обратной связи (необязательно)</label><br>
+            <input type="text" name="contact_preference" placeholder="Email, telegram, личная беседа..." 
+                   style="width: 100%; padding: 8px;">
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+            <label>Ваши комментарии и предложения</label><br>
+            <textarea name="comments" rows="4" 
+                      placeholder="Что вам нравится/не нравится в текущем ПО? Какие сложности видите?" 
+                      style="width: 100%; padding: 8px;"></textarea>
+        </div>
+        
+        <input type="hidden" name="language" value="ru">
+        
+        <button type="button" onclick="submitForm()" 
+                style="background: #4CAF50; color: white; padding: 12px 24px; border: none; cursor: pointer; font-size: 16px;">
+            Отправить ответ
+        </button>
+    </form>
+    
+    <div id="message" class="message" style="display: none;"></div>
+    
+    <script>
+        async function submitForm() {
+            const form = document.getElementById('surveyForm');
+            const formData = new FormData(form);
+            const message = document.getElementById('message');
+            
+            // Проверка обязательных полей
+            const linuxExp = form.querySelector('[name="linux_experience"]').value;
+            const attitude = form.querySelector('[name="attitude"]').value;
+            
+            if (!linuxExp || !attitude) {
+                message.textContent = 'Пожалуйста, заполните обязательные поля (помечены *)';
+                message.className = 'message error';
+                message.style.display = 'block';
+                return;
+            }
+            
+            try {
+                const response = await fetch('/submit', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const text = await response.text();
+                
+                if (response.ok) {
+                    message.textContent = text;
+                    message.className = 'message success';
+                    message.style.display = 'block';
+                    
+                    // Очистка формы через 3 секунды
+                    setTimeout(() => {
+                        form.reset();
+                        message.style.display = 'none';
+                    }, 3000);
+                } else {
+                    message.textContent = 'Ошибка: ' + text;
+                    message.className = 'message error';
+                    message.style.display = 'block';
+                }
+            } catch (error) {
+                message.textContent = 'Сетевая ошибка: ' + error.message;
+                message.className = 'message error';
+                message.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
