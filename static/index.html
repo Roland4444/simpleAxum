@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная страница</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .link:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Добро пожаловать!</h1>
+    <p>Это главная страница приложения на Axum</p>
+    <a href="/test" class="link">Перейти на /test</a>
+    
+    <h2>Примеры других маршрутов:</h2>
+    <ul>
+        <li><a href="/">Главная (/)</a></li>
+        <li><a href="/test">Тест (/test)</a></li>
+        <li><a href="/unknown">Несуществующий маршрут</a></li>
+    </ul>
+</body>
+</html>
