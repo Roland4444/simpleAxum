@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -39,5 +39,577 @@
         <li><a href="/test">Тест (/test)</a></li>
         <li><a href="/unknown">Несуществующий маршрут</a></li>
     </ul>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title id="page-title">Опрос о программном обеспечении</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            padding: 0 20px 20px 20px;
+            margin: 0;        
+        }
+        
+        .container {
+            max-width: 800px;
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            margin: 20px auto;
+        }
+        
+        /* .language-switcher {
+            text-align: right;
+            margin-bottom: 20px;
+        } */
+        
+        .lang-btn {
+            margin: 0 5px;
+            padding: 5px 15px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .lang-btn.active {
+            background: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .required::after {
+            content: " *";
+            color: #dc3545;
+        }
+        
+        input[type="text"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        
+        .checkbox-group {
+            margin: 10px 0;
+        }
+        
+        .checkbox-group div {
+            margin: 5px 0;
+        }
+        
+        .special-software-input {
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .special-software-input.show {
+            display: block;
+        }
+        
+        .btn-submit {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        
+        .btn-submit:hover {
+            background: #218838;
+        }
+        
+        .message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .rtl {
+            direction: rtl;
+            text-align: right;
+        }
+
+        nav.rtl {
+            flex-direction: row-reverse;
+        }
+
+        nav.rtl > div:first-child {
+            flex-direction: row-reverse;
+        }
+        
+        .disclaimer {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+ <!-- Навигационная панель с логотипом -->
+    <nav style="
+        background: white;
+        padding: 10px 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+       display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    ">
+        <div style="display: flex; align-items: center; gap: 15px;">
+           <!-- Логотип -->
+            <a href="/" style="display: flex; align-items: center; text-decoration: none; color: #333;">
+                <img src="/static/logo.png" alt="Logo" id="logo-img" 
+                     style="height: 40px; width: auto; border-radius: 5px; margin-right: 10px;">
+                <span id="company-name" style="font-weight: 600; font-size: 1.2rem;">Servey</span>
+            </a>
+            
+            <!-- Навигационные ссылки -->
+            <div style="display: flex; gap: 20px; margin-left: 30px;">
+                <a href="/" id="nav-home" style="text-decoration: none; color: #333;">Главная</a>
+                <a href="/test" id="nav-test" style="text-decoration: none; color: #333;">Hello World</a>
+            </div>
+        </div>
+        
+        <!-- Переключатель языка -->
+        <div class="language-switcher" style="display: flex; gap: 10px;">
+            <button class="lang-btn" onclick="changeLanguage('ru')" id="btn-ru">🇷🇺 Русский</button>
+            <button class="lang-btn" onclick="changeLanguage('fa')" id="btn-fa">🇮🇷 فارسی</button>
+        </div>
+    </nav>
+        
+        <h1 id="main-title">Опрос: Ваше мнение о программном обеспечении</h1>
+        
+        <div class="disclaimer" id="disclaimer">
+            Изучаем возможности оптимизации рабочих процессов через использование альтернативного ПО, 
+            включая Linux и open-source решения.<br><br>
+            <strong>Ваше мнение важно для принятия взвешенных решений. Опрос анонимен — указывать имя необязательно.</strong>
+        </div>
+        
+        <form id="surveyForm">
+            <!-- Имя -->
+            <div class="form-group">
+                <label id="name-label">Ваше имя (необязательно)</label>
+                <input type="text" name="name" id="name" placeholder="Можно оставить пустым">
+            </div>
+            
+            <!-- Опыт работы с Linux -->
+            <div class="form-group">
+                <label class="required" id="linux-exp-label">Опыт работы с Linux</label>
+                <select name="linux_experience" id="linux_experience" required>
+                    <option value="">-- Выберите вариант --</option>
+                    <option value="0">Нет опыта</option>
+                    <option value="1">Базовый (пользовался немного)</option>
+                    <option value="2">Продвинутый (регулярно использую)</option>
+                    <option value="3">Эксперт (администрирую системы)</option>
+                </select>
+            </div>
+            
+            <!-- Отношение к переходу -->
+            <div class="form-group">
+                <label class="required" id="attitude-label">Ваше отношение к возможному переходу на Linux</label>
+                <select name="attitude" id="attitude" required>
+                    <option value="">-- Выберите вариант --</option>
+                    <option value="0">Положительное, готов участвовать</option>
+                    <option value="1">Нейтральное, мне все равно</option>
+                    <option value="2">Есть опасения по поводу сложностей</option>
+                    <option value="3">Отрицательное, не поддерживаю идею</option>
+                </select>
+            </div>
+            
+            <!-- Задачи на компьютере -->
+            <div class="form-group">
+                <label id="tasks-label">Какие задачи выполняете на компьютере? (можно выбрать несколько)</label>
+                <div class="checkbox-group">
+                    <div>
+                        <input type="checkbox" name="docs_flag" id="docs_flag" value="true">
+                        <label for="docs_flag" id="docs-label">Работа с документами (Word, Excel)</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="email_flag" id="email_flag" value="true">
+                        <label for="email_flag" id="email-label">Электронная почта</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="c1flag" id="c1flag" value="true">
+                        <label for="c1flag" id="c1-label">Работа с 1С</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="special_flag" id="special_flag" value="true">
+                        <label for="special_flag" id="special-label">Специализированный софт</label>
+                    </div>
+                </div>
+                <div class="special-software-input" id="special-software-container">
+                    <input type="text" name="special_software" id="special_software" 
+                           placeholder="Перечислите Специализированный софт">
+                </div>
+            </div>
+            
+            <!-- Участие в тестировании -->
+            <div class="form-group">
+                <label id="testing-label">Готовы ли вы участвовать в тестировании?</label>
+                <div>
+                    <input type="checkbox" name="will_test" id="will_test" value="true">
+                    <label for="will_test" id="will-test-label">Да</label>
+                </div>
+            </div>
+            
+            <!-- Способ обратной связи -->
+            <div class="form-group">
+                <label id="contact-label">Предпочтительный способ обратной связи (необязательно)</label>
+                <input type="text" name="contact_preference" id="contact_preference" 
+                       placeholder="Email, telegram, личная беседа...">
+            </div>
+            
+            <!-- Комментарии -->
+            <div class="form-group">
+                <label id="comments-label">Ваши комментарии и предложения</label>
+                <textarea name="comments" id="comments" rows="4" 
+                          placeholder="Что вам нравится/не нравится в текущем ПО? Какие сложности видите?"></textarea>
+            </div>
+            
+            <!-- Скрытое поле языка -->
+            <input type="hidden" name="language" id="language" value="ru">
+            
+            <button type="button" class="btn-submit" onclick="submitForm()" id="submit-btn">Отправить ответ</button>
+        </form>
+        
+        <div id="message" class="message"></div>
+    </div>
+
+    <script>
+        // Словари переводов
+        const translations = {
+            ru: {
+
+                // Навигация
+                'company-name': 'Servey',
+                'nav-home': 'Главная',
+                'nav-test': 'Hello World',
+        
+                // Заголовки
+                'page-title': 'Опрос о программном обеспечении',
+                'main-title': 'Опрос: Ваше мнение о программном обеспечении',
+                'disclaimer': 'Изучаем возможности оптимизации рабочих процессов через использование альтернативного ПО, включая Linux и open-source решения.<br><br><strong>Ваше мнение важно для принятия взвешенных решений. Опрос анонимен — указывать имя необязательно.</strong>',
+                
+                // Поля формы
+                'name-label': 'Ваше имя (необязательно)',
+                'name': 'Можно оставить пустым',
+                'linux-exp-label': 'Опыт работы с Linux',
+                'attitude-label': 'Ваше отношение к возможному переходу на Linux',
+                'tasks-label': 'Какие задачи выполняете на компьютере? (можно выбрать несколько)',
+                'docs-label': 'Работа с документами (Word, Excel)',
+                'email-label': 'Электронная почта',
+                'c1-label': 'Работа с 1С',
+                'special-label': 'Специализированный софт',
+                'special_software': 'Перечислите Специализированный софт',
+                'testing-label': 'Готовы ли вы участвовать в тестировании?',
+                'will-test-label': 'Да',
+                'contact-label': 'Предпочтительный способ обратной связи (необязательно)',
+                'contact_preference': 'Email, telegram, личная беседа...',
+                'comments-label': 'Ваши комментарии и предложения',
+                'comments': 'Что вам нравится/не нравится в текущем ПО? Какие сложности видите?',
+                'submit-btn': 'Отправить ответ',
+                
+                // Опции select
+                'select-default': '-- Выберите вариант --',
+                'linux-exp-0': 'Нет опыта',
+                'linux-exp-1': 'Базовый (пользовался немного)',
+                'linux-exp-2': 'Продвинутый (регулярно использую)',
+                'linux-exp-3': 'Эксперт (администрирую системы)',
+                'attitude-0': 'Положительное, готов участвовать',
+                'attitude-1': 'Нейтральное, мне все равно',
+                'attitude-2': 'Есть опасения по поводу сложностей',
+                'attitude-3': 'Отрицательное, не поддерживаю идею'
+            },
+            
+            fa: {
+
+
+                        // Навигация
+                'company-name': 'سروری',
+                'nav-home': 'خانه',
+                'nav-test': 'سلام دنیا',
+                // Заголовки
+                'page-title': 'نظرسنجی درباره نرم‌افزار',
+                'main-title': 'نظرسنجی: نظر شما درباره نرم‌افزار',
+                'disclaimer': 'بررسی امکان‌سنجی بهینه‌سازی فرآیندهای کاری با استفاده از نرم‌افزارهای جایگزین از جمله Linux و open-source.<br><br><strong>نظر شما برای اتخاذ تصمیمات آگاهانه بسیار حائز اهمیت است. این نظرسنجی ناشناس است — ذکر نام اختیاری می‌باشد.</strong>',
+                
+                // Поля формы
+                'name-label': 'نام شما (اختیاری)',
+                'name': 'می‌توانید خالی بگذارید',
+                'linux-exp-label': 'تجربه کار با Linux',
+                'attitude-label': 'دیدگاه شما نسبت به امکان انتقال به Linux',
+                'tasks-label': 'چه وظایفی را با کامپیوتر انجام می‌دهید؟ (چندگزینه‌ای)',
+                'docs-label': 'کار با اسناد (Word, Excel)',
+                'email-label': 'مدیریت ایمیل',
+                'c1-label': 'کار با نرم‌افزار 1C',
+                'special-label': 'نرم‌افزارهای تخصصی (ذکر کنید)',
+                'special_software': 'نرم‌افزارهای تخصصی را ذکر کنید',
+                'testing-label': 'آیا آمادگی مشارکت در مرحله آزمایشی را دارید؟',
+                'will-test-label': 'بله',
+                'contact-label': 'روش ترجیحی برای دریافت فیدبک (اختیاری)',
+                'contact_preference': 'ایمیل، تلگرام، گفتگوی حضوری ...',
+                'comments-label': 'نظرات و پیشنهادات شما',
+                'comments': 'از نرم‌افزارهای فعلی چه موردی را می‌پسندید/نمی‌پسندید؟ چه چالش‌هایی پیش‌بینی می‌کنید؟',
+                'submit-btn': 'ارسال پاسخ',
+                
+                // Опции select
+                'select-default': '-- انتخاب کنید --',
+                'linux-exp-0': 'بدون سابقه',
+                'linux-exp-1': 'مبتدی (کمی تجربه استفاده دارم)',
+                'linux-exp-2': 'پیشرفته (به طور منظم استفاده می‌کنم)',
+                'linux-exp-3': 'متخصص (سیستم‌ها را مدیریت می‌کنم)',
+                'attitude-0': 'مثبت، آماده مشارکت هستم',
+                'attitude-1': 'خنثی، برایم تفاوتی ندارد',
+                'attitude-2': 'نگران پیچیدگی‌های احتمالی هستم',
+                'attitude-3': 'منفی، با این ایده موافق نیستم'
+            }
+        };
+
+        let currentLang = 'ru';
+
+        // Функция смены языка
+        function changeLanguage(lang) {
+            currentLang = lang;
+            
+            // Обновляем активную кнопку
+            // document.querySelectorAll('.lang-btn').forEach(btn => {
+            //     btn.classList.remove('active');
+            // });
+
+
+            +    // Обновляем активную кнопку языка
+    document.getElementById('btn-ru').classList.remove('active');
+    document.getElementById('btn-fa').classList.remove('active');
+    if (lang === 'ru') {
+        document.getElementById('btn-ru').classList.add('active');
+    } else {
+        document.getElementById('btn-fa').classList.add('active');
+    }
+    
+    // Обновляем логотип в зависимости от языка (опционально)
+    const logoImg = document.getElementById('logo-img');
+    if (lang === 'fa') {
+        // Для фарси можно использовать другой логотип или оставить тот же
+        // logoImg.src = '/static/logo_fa.png'; // если есть отдельный логотип
+    } else {
+        // logoImg.src = '/static/logo.png';
+    }
+    
+    // Обновляем тексты навигации
+    document.getElementById('company-name').textContent = translation['company-name'];
+    document.getElementById('nav-home').textContent = translation['nav-home'];
+    document.getElementById('nav-test').textContent = translation['nav-test'];
+    
+    // Обновляем направление для RTL
+    if (lang === 'fa') {
+        document.body.classList.add('rtl');
+        document.querySelector('nav').classList.add('rtl');
+    } else {
+        document.body.classList.remove('rtl');
+        document.querySelector('nav').classList.remove('rtl');
+    }
+    
+    // Обновляем остальные тексты...
+    
+    // Обновляем скрытое поле языка
+    document.getElementById('language').value = lang;
+    
+    // Сохраняем выбор
+    localStorage.setItem('language', lang);
+}
+
+
+            event.target.classList.add('active');
+            
+            // Направление текста для RTL
+            if (lang === 'fa') {
+                document.body.classList.add('rtl');
+            } else {
+                document.body.classList.remove('rtl');
+            }
+            
+            // Применяем переводы
+            const translation = translations[lang];
+            
+            // Обновляем тексты
+            document.getElementById('page-title').textContent = translation['page-title'];
+            document.getElementById('main-title').textContent = translation['main-title'];
+            document.getElementById('disclaimer').innerHTML = translation['disclaimer'];
+            
+            // Обновляем лейблы и плейсхолдеры
+            document.getElementById('name-label').textContent = translation['name-label'];
+            document.getElementById('name').placeholder = translation['name'];
+            document.getElementById('linux-exp-label').innerHTML = translation['linux-exp-label'];
+            document.getElementById('attitude-label').innerHTML = translation['attitude-label'];
+            document.getElementById('tasks-label').textContent = translation['tasks-label'];
+            document.getElementById('docs-label').textContent = translation['docs-label'];
+            document.getElementById('email-label').textContent = translation['email-label'];
+            document.getElementById('c1-label').textContent = translation['c1-label'];
+            document.getElementById('special-label').textContent = translation['special-label'];
+            document.getElementById('special_software').placeholder = translation['special_software'];
+            document.getElementById('testing-label').textContent = translation['testing-label'];
+            document.getElementById('will-test-label').textContent = translation['will-test-label'];
+            document.getElementById('contact-label').textContent = translation['contact-label'];
+            document.getElementById('contact_preference').placeholder = translation['contact_preference'];
+            document.getElementById('comments-label').textContent = translation['comments-label'];
+            document.getElementById('comments').placeholder = translation['comments'];
+            document.getElementById('submit-btn').textContent = translation['submit-btn'];
+            
+            // Обновляем опции в select
+            const linuxExpSelect = document.getElementById('linux_experience');
+            linuxExpSelect.options[0].text = translation['select-default'];
+            linuxExpSelect.options[1].text = translation['linux-exp-0'];
+            linuxExpSelect.options[2].text = translation['linux-exp-1'];
+            linuxExpSelect.options[3].text = translation['linux-exp-2'];
+            linuxExpSelect.options[4].text = translation['linux-exp-3'];
+            
+            const attitudeSelect = document.getElementById('attitude');
+            attitudeSelect.options[0].text = translation['select-default'];
+            attitudeSelect.options[1].text = translation['attitude-0'];
+            attitudeSelect.options[2].text = translation['attitude-1'];
+            attitudeSelect.options[3].text = translation['attitude-2'];
+            attitudeSelect.options[4].text = translation['attitude-3'];
+            
+            // Обновляем скрытое поле языка
+            document.getElementById('language').value = lang;
+            
+            // Сохраняем выбор
+            localStorage.setItem('language', lang);
+        
+
+        // Показать поле для специализированного софта при выборе соответствующего чекбокса
+        document.getElementById('special_flag').addEventListener('change', function() {
+            const container = document.getElementById('special-software-container');
+            if (this.checked) {
+                container.classList.add('show');
+            } else {
+                container.classList.remove('show');
+            }
+        });
+
+        // Отправка формы
+        async function submitForm() {
+            const form = document.getElementById('surveyForm');
+            const formData = new FormData(form);
+            const message = document.getElementById('message');
+            
+            // Проверка обязательных полей
+            const linuxExp = document.getElementById('linux_experience').value;
+            const attitude = document.getElementById('attitude').value;
+            
+            if (!linuxExp || !attitude) {
+                message.textContent = currentLang === 'fa' 
+                    ? 'لطفاً فیلدهای الزامی را پر کنید' 
+                    : 'Пожалуйста, заполните обязательные поля';
+                message.className = 'message error';
+                message.style.display = 'block';
+                return;
+            }
+            
+            try {
+                const response = await fetch('/submit', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const text = await response.text();
+                
+                if (response.ok) {
+                    message.textContent = text;
+                    message.className = 'message success';
+                    message.style.display = 'block';
+                    
+                    // Очистка формы через 3 секунды
+                    setTimeout(() => {
+                        form.reset();
+                        message.style.display = 'none';
+                        // Сбросить отображение поля для специализированного софта
+                        document.getElementById('special-software-container').classList.remove('show');
+                    }, 3000);
+                } else {
+                    message.textContent = text;
+                    message.className = 'message error';
+                    message.style.display = 'block';
+                }
+            } catch (error) {
+                message.textContent = currentLang === 'fa'
+                    ? 'خطای شبکه: ' + error.message
+                    : 'Сетевая ошибка: ' + error.message;
+                message.className = 'message error';
+                message.style.display = 'block';
+            }
+        }
+
+        // Инициализация при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            // Проверяем сохраненный язык
+            const savedLang = localStorage.getItem('language') || 'ru';
+            changeLanguage(savedLang);
+            
+            // Устанавливаем активную кнопку языка
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.includes(savedLang === 'ru' ? 'Русский' : 'فارسی')) {
+                    btn.classList.add('active');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
